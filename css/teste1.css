@@ -1,0 +1,99 @@
+#mainPage{
+     display: none; 
+    text-align: center;
+}
+
+
+#startPage{
+    text-align: center;
+}
+
+.livro{
+    padding-top: 20px;
+    padding-bottom: 10px;
+
+    background-color: papayawhip;
+     /* display:inline-block;  */
+    
+    /* width:300px; */
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    text-align: center;
+
+    /* margin-left: 3%;
+
+    margin-right:3%; */
+
+    border: 1px solid black;
+
+    /* display: none; */
+
+}
+
+/* .active{
+    display:block;
+ 
+} */
+
+.livro img{
+    /* referente a todas as imagens existentes dentro da classe livro */
+
+    width:220px;
+    height:290px;
+    border:1px solid black;
+    /* height: 300px; */ 
+}
+
+.livro .text{
+    /* referente a todo o texto que existe dentro da classe livro */
+    height:130px;
+    font-size: 16px;
+    display: table;
+    /* para o texto se comportar como uma tabela para posteriormente o centrar */
+}
+
+   /* para centrar o texto verticalmente: */
+.livro .text p{
+    display: table-cell;
+    vertical-align: middle;
+ 
+}
+
+.livro button{
+
+    margin-top:5%;
+    margin-bottom: 5%;
+    width: 120px; 
+    font-size:16px;
+} 
+
+  .livro a{
+    margin-top:5%;
+    margin-left: 5%;
+    margin-right:5%;
+    margin-bottom: 5%;
+}  
+
+
+
+body{
+    padding-top: 100px;
+    text-align: center;
+}
+
+
+
+#endPage{
+    display: none;
+
+}
+
+table, th, td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 500px;
+    padding: 15px;
+    text-align: center;
+
+}
