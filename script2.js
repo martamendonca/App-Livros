@@ -27,17 +27,18 @@ $('#buttonStart').click(function () {
 
             this.actualBook = this.filaBooks.dequeue(); //funcao que retira livros e esta definida numa classe em baixo (vai retirar o primeiro elemento)
             
-            // if (...... != null){
+            if (this.actualBook != null){
 
                 this.actualBook.render(); //vai correr a funcao render para aparecer o livro na interface
             
                 this.viewedBooks.enqueue(this.actualBook); //fila viewedbooks com os livros que foram retirados da fila books
-            // }
-            // else {
-                // $("#mainPage").hide();
-                // $("#endPage").show();
+             }
+            else {
+                $("#mainPage").hide();
+                $("#endPage").show();
+                this.counterLikes();
 
-            // }
+             }
 
         }
 
@@ -71,10 +72,12 @@ $('#buttonStart').click(function () {
 
                 livroActual= this.viewedBooks.dequeue();
 
-            return contadorLikes;
-            return contadorDislikes;
 
             }
+
+            $('#likes').html(contadorLikes);
+            $('#dislikes').html(contadorDislikes);
+
         }
     };
 
@@ -131,6 +134,8 @@ $('#buttonStart').click(function () {
 
     library.runBook(); //para correr o primeiro livro 
 
+    
+
     $("#buttonLike").click(function(){ //sempre que clico no botao like vai executar a funcao like que esta na classe library
         library.like();
     });
@@ -139,4 +144,3 @@ $('#buttonStart').click(function () {
         library.dislike();
     });
 
-    // $('#likes').text(likes);
