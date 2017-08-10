@@ -1,11 +1,3 @@
-$opinion = [];
-
-$('#buttonStart').click(function () {
-
-    $("#startPage").hide();
-    $("#mainPage").show();
-
-});
 // assim que se clica no botao da primeira pagina ("Comecar") ele vai esconder essa pagina e vai faer aparecer o pimeiro livro
 
 // Funcoes para a mainPage --------------------------------------------------
@@ -116,23 +108,54 @@ $('#buttonStart').click(function () {
         }
     };
 
+    function init(paramPesquisa) {
 
+        $.get("https://www.googleapis.com/books/v1/volumes?q=" + encodeURI(paramPesquisa)).done(function (data) {
+            //encodeURI retira os espacos ou outros caracteres que foram introduzidos na interface
+            //get vai buscar o link. done é a funcao call back
+            console.log(data);
+
+            for (i = 0; i < data.items.length; i++) {
+
+                var bookInfo = data.items[i];
+
+                var titulo = bookInfo.volumeInfo.title;
+                var imagem = bookInfo.volumeInfo.imageLinks.thumbnail;
+                var descricao = bookInfo.volumeInfo.description;
+                var link = bookInfo.volumeInfo.infoLink;
+
+                bookInfo= new Book(titulo,imagem,descricao,link);
+
+           
+                library.addBook(bookInfo);
+                   
+                console.log(bookInfo);
+            }
+            library.runBook();
+
+        }).fail(function (data) {
+            console.log(data);
+        }) //data e a biblioteca com os livros da pesquisa
+
+    };
+
+    init("agatha christie");
 
     var library = new Library(); //instanciar
 
-    var book1= new Book("Os Lusíadas", "OsLusiadas.jpg", "Considerada a epopeia portuguesa por excelência. Obra poética de <strong>Luís de Camões</strong> onde é consagrada a história de Portugal até à epopeia dos descobrimentos.",["http://www.fnac.pt/Os-Lusiadas-Luis-de-Camoes/a959399","https://www.bertrand.pt/ficha/os-lusiadas?id=2145159","https://www.wook.pt/livro/os-lusiadas-luis-de-camoes/2145159"]);
-    var book2= new Book("Os Maias", "Maias.jpg","Uma das obras mais conhecidas de <strong>Eça de Queirós</strong>, que conta a história da família Maia ao longo de três gerações, centrando-se depois na última com a história de amor entre Carlos da Maia e Maria Eduarda.",["http://www.fnac.pt/Os-Lusiadas-Luis-de-Camoes/a959399","https://www.bertrand.pt/ficha/os-lusiadas?id=2145159","https://www.wook.pt/livro/os-lusiadas-luis-de-camoes/2145159"]);
-    var book3= new Book("Mensagem", "Mensagem.jpg","Livro do poeta <strong>Fernando Pessoa</strong>. A obra trata do glorioso passado de Portugal de forma apologética e tenta encontrar um sentido para a antiga grandeza e a decadência existente na época.",["http://www.fnac.pt/Os-Lusiadas-Luis-de-Camoes/a959399","https://www.bertrand.pt/ficha/os-lusiadas?id=2145159","https://www.wook.pt/livro/os-lusiadas-luis-de-camoes/2145159"]);
+    // var book1= new Book("Os Lusíadas", "OsLusiadas.jpg", "Considerada a epopeia portuguesa por excelência. Obra poética de <strong>Luís de Camões</strong> onde é consagrada a história de Portugal até à epopeia dos descobrimentos.",["http://www.fnac.pt/Os-Lusiadas-Luis-de-Camoes/a959399","https://www.bertrand.pt/ficha/os-lusiadas?id=2145159","https://www.wook.pt/livro/os-lusiadas-luis-de-camoes/2145159"]);
+    // var book2= new Book("Os Maias", "Maias.jpg","Uma das obras mais conhecidas de <strong>Eça de Queirós</strong>, que conta a história da família Maia ao longo de três gerações, centrando-se depois na última com a história de amor entre Carlos da Maia e Maria Eduarda.",["http://www.fnac.pt/Os-Lusiadas-Luis-de-Camoes/a959399","https://www.bertrand.pt/ficha/os-lusiadas?id=2145159","https://www.wook.pt/livro/os-lusiadas-luis-de-camoes/2145159"]);
+    // var book3= new Book("Mensagem", "Mensagem.jpg","Livro do poeta <strong>Fernando Pessoa</strong>. A obra trata do glorioso passado de Portugal de forma apologética e tenta encontrar um sentido para a antiga grandeza e a decadência existente na época.",["http://www.fnac.pt/Os-Lusiadas-Luis-de-Camoes/a959399","https://www.bertrand.pt/ficha/os-lusiadas?id=2145159","https://www.wook.pt/livro/os-lusiadas-luis-de-camoes/2145159"]);
     
-    var books= new Queue();
+    // var books= new Queue();
 
-    //para executar a funcao:
-    library.addBook(book1); //coloca a variavel book1 na funcao addBook 
-    library.addBook(book2);
-    library.addBook(book3);
+    // //para executar a funcao:
+    // library.addBook(book1); //coloca a variavel book1 na funcao addBook 
+    // library.addBook(book2);
+    // library.addBook(book3);
 
 
-    library.runBook(); //para correr o primeiro livro 
+    // library.runBook(); //para correr o primeiro livro 
 
     
 
@@ -144,3 +167,9 @@ $('#buttonStart').click(function () {
         library.dislike();
     });
 
+    $('#buttonStart').click(function () {
+
+        $("#startPage").hide();
+        $("#mainPage").show();
+
+    });
